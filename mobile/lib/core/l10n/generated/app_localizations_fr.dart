@@ -294,4 +294,46 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get quickAction => 'Action rapide';
+
+  @override
+  String get documentsTitle => 'Documents & Fichiers';
+
+  @override
+  String get newFolder => 'Nouveau dossier';
+
+  @override
+  String get newDocument => 'Ajouter un document';
+
+  @override
+  String get allFiles => 'Tous les fichiers';
+
+  @override
+  String get seatingPlan => 'Plan de classe';
+
+  @override
+  String get newSeatingPlan => 'Nouveau plan';
+
+  @override
+  String get studentGroups => 'Groupes d\'élèves';
+
+  @override
+  String get newGroup => 'Nouveau groupe';
+
+  @override
+  String get activityLogs => 'Activités et participation';
+
+  @override
+  String get logActivity => 'Enregistrer une activité';
+
+  @override
+  String get followUpAlerts => 'Alertes de suivi';
+
+  @override
+  String get academicYear => 'Année scolaire';
+
+  @override
+  String get globalSearch => 'Recherche globale';
+
+  @override
+  String get activityHistory => 'Historique d\'activité';
 }

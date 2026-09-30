@@ -95,5 +95,19 @@
   "missing": "غير منجز",
   "tasks": "المهام اليومية",
   "newTask": "مهمة جديدة",
-  "quickAction": "إجراء سريع"
+  "quickAction": "إجراء سريع",
+  "documentsTitle": "المستندات والملفات",
+  "newFolder": "مجلد جديد",
+  "newDocument": "إضافة مستند",
+  "allFiles": "جميع الملفات",
+  "seatingPlan": "مخطط الجلوس",
+  "newSeatingPlan": "مخطط جديد",
+  "studentGroups": "المجموعات الطلابية",
+  "newGroup": "إنشاء فوج أو مجموعة",
+  "activityLogs": "سجل المشاركة والنشاط",
+  "logActivity": "تسجيل مشاركة صفية",
+  "followUpAlerts": "تنبيهات المتابعة التلقائية",
+  "academicYear": "السنة الدراسية",
+  "globalSearch": "البحث الشامل",
+  "activityHistory": "سجل النشاطات والتعديلات"
 }

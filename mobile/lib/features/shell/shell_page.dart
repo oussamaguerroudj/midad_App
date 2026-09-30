@@ -49,12 +49,21 @@ class ShellPage extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const CircleAvatar(backgroundColor: AppColors.brandSoft, child: Icon(Icons.calendar_month, color: AppColors.brand)),
-                title: Text(l.plannerTitle, style: const TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: const Text('فتح جدول الحصص ودفتر النصوص'),
+                leading: const CircleAvatar(backgroundColor: AppColors.brandSoft, child: Icon(Icons.folder_shared, color: AppColors.brand)),
+                title: Text(l.documentsTitle, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text('إدارة الملفات والوثائق والمذكرات'),
                 onTap: () {
                   Navigator.pop(ctx);
-                  shell.goBranch(2);
+                  context.push('/documents');
+                },
+              ),
+              ListTile(
+                leading: const CircleAvatar(backgroundColor: AppColors.brandSoft, child: Icon(Icons.search, color: AppColors.brand)),
+                title: Text(l.globalSearch, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text('البحث الفوري في كافة عناصر التطبيق'),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  context.push('/search');
                 },
               ),
             ],

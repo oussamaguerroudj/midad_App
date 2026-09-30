@@ -8,12 +8,29 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.exceptions import AppError, Conflict, NotFound
 from app.modules.classes.models import SchoolClass
-from app.modules.students.models import ClassStudent, Student, StudentNote
+from app.modules.students.models import (
+    ClassStudent,
+    GroupMember,
+    SeatingPlan,
+    SeatingPlanMember,
+    Student,
+    StudentActivityLog,
+    StudentGroup,
+    StudentNote,
+)
 from app.modules.students.schemas import (
     ClassEnrollRequest,
     EnrolledClassItem,
+    SeatingPlanCreate,
+    SeatingPlanMemberOut,
+    SeatingPlanOut,
+    StudentActivityLogCreate,
+    StudentActivityLogOut,
     StudentCreate,
     StudentDetailOut,
+    StudentGroupCreate,
+    StudentGroupMemberOut,
+    StudentGroupOut,
     StudentNoteCreate,
     StudentNoteOut,
     StudentOut,
@@ -377,4 +394,318 @@ def add_student_note(
         body=note.body,
         class_id=note.class_id,
         created_at=note.created_at,
+    )
+
+
+# --- Phase 3: Seating Plans ---
+
+@router.get("/classes/{class_id}/seating-plans", response_model=list[SeatingPlanOut])
+def list_seating_plans(
+    class_id: uuid.UUID,
+    principal: Principal = Depends(current_principal),
+    db: Session = Depends(get_db),
+):
+    if not principal.teacher_id:
+        raise NotFound("Teacher profile not found.")
+    tid = uuid.UUID(principal.teacher_id)
+
+    plans = db.execute(
+        select(SeatingPlan).where(
+            SeatingPlan.class_id == class_id,
+            SeatingPlan.teacher_id == tid,
+            SeatingPlan.deleted_at.is_(None),
+        ).order_by(SeatingPlan.created_at.desc())
+    ).scalars().all()
+
+    result = []
+    for p in plans:
+        members_stmt = (
+            select(SeatingPlanMember, Student.first_name, Student.last_name)
+            .outerjoin(Student, Student.id == SeatingPlanMember.student_id)
+            .where(SeatingPlanMember.plan_id == p.id, SeatingPlanMember.deleted_at.is_(None))
+        )
+        mem_rows = db.execute(members_stmt).all()
+        members_out = [
+            SeatingPlanMemberOut(
+                id=m[0].id,
+                plan_id=m[0].plan_id,
+                student_id=m[0].student_id,
+                student_name=f"{m[1]} {m[2]}" if m[1] else None,
+                seat_x=float(m[0].seat_x),
+                seat_y=float(m[0].seat_y),
+            )
+            for m in mem_rows
+        ]
+        result.append(
+            SeatingPlanOut(
+                id=p.id,
+                class_id=p.class_id,
+                name=p.name,
+                layout=p.layout,
+                members=members_out,
+                version=p.version,
+                created_at=p.created_at,
+                updated_at=p.updated_at,
+            )
+        )
+    return result
+
+
+@router.post("/classes/{class_id}/seating-plans", response_model=SeatingPlanOut, status_code=201)
+def create_seating_plan(
+    class_id: uuid.UUID,
+    payload: SeatingPlanCreate,
+    principal: Principal = Depends(current_principal),
+    db: Session = Depends(get_db),
+):
+    if not principal.teacher_id:
+        raise NotFound("Teacher profile not found.")
+    tid = uuid.UUID(principal.teacher_id)
+
+    cls = db.execute(
+        select(SchoolClass).where(
+            SchoolClass.id == class_id,
+            SchoolClass.teacher_id == tid,
+            SchoolClass.deleted_at.is_(None),
+        )
+    ).scalar_one_or_none()
+    if not cls:
+        raise NotFound("Class not found.")
+
+    plan = SeatingPlan(
+        teacher_id=tid,
+        class_id=class_id,
+        name=payload.name.strip(),
+        layout=payload.layout,
+    )
+    db.add(plan)
+    db.flush()
+
+    members_out = []
+    for m in payload.members:
+        member = SeatingPlanMember(
+            teacher_id=tid,
+            plan_id=plan.id,
+            student_id=m.student_id,
+            seat_x=m.seat_x,
+            seat_y=m.seat_y,
+        )
+        db.add(member)
+        db.flush()
+
+        s_name = None
+        if m.student_id:
+            st = db.execute(select(Student).where(Student.id == m.student_id)).scalar_one_or_none()
+            if st:
+                s_name = f"{st.first_name} {st.last_name}"
+
+        members_out.append(
+            SeatingPlanMemberOut(
+                id=member.id,
+                plan_id=plan.id,
+                student_id=m.student_id,
+                student_name=s_name,
+                seat_x=float(member.seat_x),
+                seat_y=float(member.seat_y),
+            )
+        )
+
+    db.commit()
+    db.refresh(plan)
+    return SeatingPlanOut(
+        id=plan.id,
+        class_id=plan.class_id,
+        name=plan.name,
+        layout=plan.layout,
+        members=members_out,
+        version=plan.version,
+        created_at=plan.created_at,
+        updated_at=plan.updated_at,
+    )
+
+
+# --- Phase 3: Student Groups ---
+
+@router.get("/classes/{class_id}/groups", response_model=list[StudentGroupOut])
+def list_student_groups(
+    class_id: uuid.UUID,
+    principal: Principal = Depends(current_principal),
+    db: Session = Depends(get_db),
+):
+    if not principal.teacher_id:
+        raise NotFound("Teacher profile not found.")
+    tid = uuid.UUID(principal.teacher_id)
+
+    groups = db.execute(
+        select(StudentGroup).where(
+            StudentGroup.class_id == class_id,
+            StudentGroup.teacher_id == tid,
+            StudentGroup.deleted_at.is_(None),
+        ).order_by(StudentGroup.name.asc())
+    ).scalars().all()
+
+    result = []
+    for g in groups:
+        mem_stmt = (
+            select(GroupMember, Student.first_name, Student.last_name)
+            .join(Student, Student.id == GroupMember.student_id)
+            .where(GroupMember.group_id == g.id, GroupMember.deleted_at.is_(None))
+        )
+        mem_rows = db.execute(mem_stmt).all()
+        members_out = [
+            StudentGroupMemberOut(
+                id=m[0].id,
+                student_id=m[0].student_id,
+                student_name=f"{m[1]} {m[2]}",
+            )
+            for m in mem_rows
+        ]
+        result.append(
+            StudentGroupOut(
+                id=g.id,
+                class_id=g.class_id,
+                name=g.name,
+                members=members_out,
+                version=g.version,
+                created_at=g.created_at,
+            )
+        )
+    return result
+
+
+@router.post("/classes/{class_id}/groups", response_model=StudentGroupOut, status_code=201)
+def create_student_group(
+    class_id: uuid.UUID,
+    payload: StudentGroupCreate,
+    principal: Principal = Depends(current_principal),
+    db: Session = Depends(get_db),
+):
+    if not principal.teacher_id:
+        raise NotFound("Teacher profile not found.")
+    tid = uuid.UUID(principal.teacher_id)
+
+    group = StudentGroup(
+        teacher_id=tid,
+        class_id=class_id,
+        name=payload.name.strip(),
+    )
+    db.add(group)
+    db.flush()
+
+    members_out = []
+    for sid in payload.student_ids:
+        gm = GroupMember(
+            teacher_id=tid,
+            group_id=group.id,
+            student_id=sid,
+        )
+        db.add(gm)
+        db.flush()
+        st = db.execute(select(Student).where(Student.id == sid)).scalar_one_or_none()
+        st_name = f"{st.first_name} {st.last_name}" if st else "Student"
+        members_out.append(
+            StudentGroupMemberOut(
+                id=gm.id,
+                student_id=sid,
+                student_name=st_name,
+            )
+        )
+
+    db.commit()
+    db.refresh(group)
+    return StudentGroupOut(
+        id=group.id,
+        class_id=group.class_id,
+        name=group.name,
+        members=members_out,
+        version=group.version,
+        created_at=group.created_at,
+    )
+
+
+# --- Phase 3: Student Activity / Participation Log ---
+
+@router.get("/classes/{class_id}/activity-logs", response_model=list[StudentActivityLogOut])
+def list_student_activity_logs(
+    class_id: uuid.UUID,
+    student_id: uuid.UUID | None = Query(None),
+    principal: Principal = Depends(current_principal),
+    db: Session = Depends(get_db),
+):
+    if not principal.teacher_id:
+        raise NotFound("Teacher profile not found.")
+    tid = uuid.UUID(principal.teacher_id)
+
+    stmt = (
+        select(StudentActivityLog, Student.first_name, Student.last_name)
+        .join(Student, Student.id == StudentActivityLog.student_id)
+        .where(
+            StudentActivityLog.class_id == class_id,
+            StudentActivityLog.teacher_id == tid,
+            StudentActivityLog.deleted_at.is_(None),
+        )
+    )
+    if student_id:
+        stmt = stmt.where(StudentActivityLog.student_id == student_id)
+
+    rows = db.execute(stmt.order_by(StudentActivityLog.logged_on.desc())).all()
+    return [
+        StudentActivityLogOut(
+            id=r[0].id,
+            student_id=r[0].student_id,
+            student_name=f"{r[1]} {r[2]}",
+            class_id=r[0].class_id,
+            logged_on=datetime(r[0].logged_on.year, r[0].logged_on.month, r[0].logged_on.day, tzinfo=timezone.utc),
+            category=r[0].category,
+            note=r[0].note,
+            created_at=r[0].created_at,
+        )
+        for r in rows
+    ]
+
+
+@router.post("/classes/{class_id}/activity-logs", response_model=StudentActivityLogOut, status_code=201)
+def create_student_activity_log(
+    class_id: uuid.UUID,
+    payload: StudentActivityLogCreate,
+    principal: Principal = Depends(current_principal),
+    db: Session = Depends(get_db),
+):
+    if not principal.teacher_id:
+        raise NotFound("Teacher profile not found.")
+    tid = uuid.UUID(principal.teacher_id)
+
+    st = db.execute(
+        select(Student).where(
+            Student.id == payload.student_id,
+            Student.teacher_id == tid,
+            Student.deleted_at.is_(None),
+        )
+    ).scalar_one_or_none()
+    if not st:
+        raise NotFound("Student not found.")
+
+    log_date = payload.logged_on.date() if payload.logged_on else datetime.now(timezone.utc).date()
+
+    entry = StudentActivityLog(
+        teacher_id=tid,
+        student_id=payload.student_id,
+        class_id=class_id,
+        logged_on=log_date,
+        category=payload.category,
+        note=payload.note,
+    )
+    db.add(entry)
+    db.commit()
+    db.refresh(entry)
+
+    return StudentActivityLogOut(
+        id=entry.id,
+        student_id=entry.student_id,
+        student_name=f"{st.first_name} {st.last_name}",
+        class_id=entry.class_id,
+        logged_on=datetime(entry.logged_on.year, entry.logged_on.month, entry.logged_on.day, tzinfo=timezone.utc),
+        category=entry.category,
+        note=entry.note,
+        created_at=entry.created_at,
     )

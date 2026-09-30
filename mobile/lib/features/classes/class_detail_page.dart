@@ -109,6 +109,20 @@ class ClassDetailPage extends ConsumerWidget {
             return Text(snapshot.data?.name ?? l10n.classesTitle);
           },
         ),
+        actions: [
+          IconButton(
+            tooltip: 'المفضلة',
+            icon: const Icon(Icons.star_border),
+            onPressed: () async {
+              await ref.read(organizationRepositoryProvider).toggleFavorite('class', classId);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('تم تحديث حالة المفضلة لهذا القسم')),
+                );
+              }
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: l10n.addStudent,
@@ -155,9 +169,9 @@ class ClassDetailPage extends ConsumerWidget {
                   ),
                 ),
 
-              // Action buttons row (Attendance, Gradebook, Assignments)
+              // Action buttons row 1 (Attendance, Gradebook, Assignments)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 4),
                 child: Row(
                   children: [
                     Expanded(
@@ -193,6 +207,50 @@ class ClassDetailPage extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                         ),
                         onPressed: () => context.push('/classes/$classId/assignments'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Action buttons row 2 (Seating Plan, Groups, Activity/Participation)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 4),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.table_restaurant_outlined, size: 16),
+                        label: Text(l10n.seatingPlan),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        onPressed: () => context.push('/classes/$classId/seating'),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.groups_outlined, size: 16),
+                        label: Text(l10n.studentGroups),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        onPressed: () => context.push('/classes/$classId/groups'),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.rate_review_outlined, size: 16),
+                        label: Text(l10n.activityLogs),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        onPressed: () => context.push('/classes/$classId/activity'),
                       ),
                     ),
                   ],

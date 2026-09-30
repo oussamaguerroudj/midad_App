@@ -651,6 +651,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick Action'**
   String get quickAction;
+
+  /// No description provided for @documentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents & Files'**
+  String get documentsTitle;
+
+  /// No description provided for @newFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'New Folder'**
+  String get newFolder;
+
+  /// No description provided for @newDocument.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Document'**
+  String get newDocument;
+
+  /// No description provided for @allFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'All Files'**
+  String get allFiles;
+
+  /// No description provided for @seatingPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Seating Plan'**
+  String get seatingPlan;
+
+  /// No description provided for @newSeatingPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'New Plan'**
+  String get newSeatingPlan;
+
+  /// No description provided for @studentGroups.
+  ///
+  /// In en, this message translates to:
+  /// **'Student Groups'**
+  String get studentGroups;
+
+  /// No description provided for @newGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'New Group'**
+  String get newGroup;
+
+  /// No description provided for @activityLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Participation & Activity'**
+  String get activityLogs;
+
+  /// No description provided for @logActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Activity'**
+  String get logActivity;
+
+  /// No description provided for @followUpAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow-up Alerts'**
+  String get followUpAlerts;
+
+  /// No description provided for @academicYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Academic Year'**
+  String get academicYear;
+
+  /// No description provided for @globalSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Global Search'**
+  String get globalSearch;
+
+  /// No description provided for @activityHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity History'**
+  String get activityHistory;
 }
 
 class _AppLocalizationsDelegate

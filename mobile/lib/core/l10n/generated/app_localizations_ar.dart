@@ -292,4 +292,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quickAction => 'إجراء سريع';
+
+  @override
+  String get documentsTitle => 'المستندات والملفات';
+
+  @override
+  String get newFolder => 'مجلد جديد';
+
+  @override
+  String get newDocument => 'إضافة مستند';
+
+  @override
+  String get allFiles => 'جميع الملفات';
+
+  @override
+  String get seatingPlan => 'مخطط الجلوس';
+
+  @override
+  String get newSeatingPlan => 'مخطط جديد';
+
+  @override
+  String get studentGroups => 'المجموعات الطلابية';
+
+  @override
+  String get newGroup => 'إنشاء فوج أو مجموعة';
+
+  @override
+  String get activityLogs => 'سجل المشاركة والنشاط';
+
+  @override
+  String get logActivity => 'تسجيل مشاركة صفية';
+
+  @override
+  String get followUpAlerts => 'تنبيهات المتابعة التلقائية';
+
+  @override
+  String get academicYear => 'السنة الدراسية';
+
+  @override
+  String get globalSearch => 'البحث الشامل';
+
+  @override
+  String get activityHistory => 'سجل النشاطات والتعديلات';
 }

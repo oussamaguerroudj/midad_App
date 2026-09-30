@@ -8,12 +8,18 @@ import '../../features/auth/auth_state.dart';
 import '../../features/auth/login_page.dart';
 import '../../features/classes/class_detail_page.dart';
 import '../../features/classes/classes_page.dart';
+import '../../features/documents/documents_page.dart';
 import '../../features/gradebook/assessment_results_page.dart';
 import '../../features/gradebook/gradebook_page.dart';
 import '../../features/home/home_page.dart';
 import '../../features/more/more_page.dart';
+import '../../features/organization/activity_and_alerts_page.dart';
+import '../../features/organization/seating_plan_page.dart';
+import '../../features/organization/student_activity_page.dart';
+import '../../features/organization/student_groups_page.dart';
 import '../../features/planner/lesson_editor_page.dart';
 import '../../features/planner/planner_page.dart';
+import '../../features/search/global_search_page.dart';
 import '../../features/shell/pending_page.dart';
 import '../../features/shell/shell_page.dart';
 import '../../features/splash/splash_page.dart';
@@ -76,6 +82,30 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/classes/:id/assignments',
         builder: (_, state) => AssignmentsPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/classes/:id/seating',
+        builder: (_, state) => SeatingPlanPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/classes/:id/groups',
+        builder: (_, state) => StudentGroupsPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/classes/:id/activity',
+        builder: (_, state) => StudentActivityPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/documents',
+        builder: (_, __) => const DocumentsPage(),
+      ),
+      GoRoute(
+        path: '/search',
+        builder: (_, __) => const GlobalSearchPage(),
+      ),
+      GoRoute(
+        path: '/alerts',
+        builder: (_, __) => const ActivityAndAlertsPage(),
       ),
       GoRoute(
         path: '/lessons/new',

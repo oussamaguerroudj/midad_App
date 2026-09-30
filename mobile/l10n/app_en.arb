@@ -95,5 +95,19 @@
   "missing": "Missing",
   "tasks": "Daily Tasks",
   "newTask": "New Task",
-  "quickAction": "Quick Action"
+  "quickAction": "Quick Action",
+  "documentsTitle": "Documents & Files",
+  "newFolder": "New Folder",
+  "newDocument": "Add Document",
+  "allFiles": "All Files",
+  "seatingPlan": "Seating Plan",
+  "newSeatingPlan": "New Plan",
+  "studentGroups": "Student Groups",
+  "newGroup": "New Group",
+  "activityLogs": "Participation & Activity",
+  "logActivity": "Log Activity",
+  "followUpAlerts": "Follow-up Alerts",
+  "academicYear": "Academic Year",
+  "globalSearch": "Global Search",
+  "activityHistory": "Activity History"
 }

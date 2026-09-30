@@ -5,13 +5,17 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../core/network/api_client.dart';
 import '../core/settings/settings_controller.dart';
 import 'local/app_database.dart';
+import 'repositories/academic_years_repository.dart';
 import 'repositories/assignments_repository.dart';
 import 'repositories/attendance_repository.dart';
 import 'repositories/auth_repository.dart';
 import 'repositories/classes_repository.dart';
 import 'repositories/curriculum_repository.dart';
+import 'repositories/documents_repository.dart';
 import 'repositories/gradebook_repository.dart';
 import 'repositories/lessons_repository.dart';
+import 'repositories/organization_repository.dart';
+import 'repositories/search_repository.dart';
 import 'repositories/students_repository.dart';
 import 'repositories/tasks_repository.dart';
 import 'sync/sync_engine.dart';
@@ -121,6 +125,60 @@ final tasksRepositoryProvider = Provider<TasksRepository>((ref) {
 final tasksStreamProvider = StreamProvider.family<List<TaskItem>, bool?>((ref, completed) {
   final repo = ref.watch(tasksRepositoryProvider);
   return repo.watchTasks(completed: completed);
+});
+
+// --- Phase 3: Organization Providers ---
+
+final academicYearsRepositoryProvider = Provider<AcademicYearsRepository>((ref) {
+  return AcademicYearsRepository(ref.watch(appDatabaseProvider));
+});
+
+final currentAcademicYearProvider = StreamProvider<AcademicYear?>((ref) {
+  return ref.watch(academicYearsRepositoryProvider).watchCurrent();
+});
+
+final allAcademicYearsProvider = StreamProvider<List<AcademicYear>>((ref) {
+  return ref.watch(academicYearsRepositoryProvider).watchAll();
+});
+
+final documentsRepositoryProvider = Provider<DocumentsRepository>((ref) {
+  return DocumentsRepository(ref.watch(appDatabaseProvider));
+});
+
+final documentFoldersProvider = StreamProvider<List<DocumentFolder>>((ref) {
+  return ref.watch(documentsRepositoryProvider).watchFolders();
+});
+
+final documentsStreamProvider = StreamProvider.family<List<Document>, String?>((ref, folderId) {
+  return ref.watch(documentsRepositoryProvider).watchDocuments(folderId: folderId);
+});
+
+final organizationRepositoryProvider = Provider<OrganizationRepository>((ref) {
+  return OrganizationRepository(ref.watch(appDatabaseProvider));
+});
+
+final seatingPlansStreamProvider = StreamProvider.family<List<SeatingPlan>, String>((ref, classId) {
+  return ref.watch(organizationRepositoryProvider).watchSeatingPlans(classId);
+});
+
+final studentGroupsStreamProvider = StreamProvider.family<List<StudentGroup>, String>((ref, classId) {
+  return ref.watch(organizationRepositoryProvider).watchGroups(classId);
+});
+
+final activityLogsStreamProvider = StreamProvider.family<List<StudentActivityLog>, String>((ref, classId) {
+  return ref.watch(organizationRepositoryProvider).watchActivityLogs(classId);
+});
+
+final followUpAlertsProvider = FutureProvider<List<LocalFollowUpAlert>>((ref) {
+  return ref.watch(organizationRepositoryProvider).evaluateFollowUpRules();
+});
+
+final favoritesStreamProvider = StreamProvider.family<List<Favorite>, String>((ref, targetType) {
+  return ref.watch(organizationRepositoryProvider).watchFavorites(targetType);
+});
+
+final searchRepositoryProvider = Provider<SearchRepository>((ref) {
+  return SearchRepository(ref.watch(appDatabaseProvider));
 });
 
 

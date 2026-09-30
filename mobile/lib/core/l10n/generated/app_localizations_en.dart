@@ -294,4 +294,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickAction => 'Quick Action';
+
+  @override
+  String get documentsTitle => 'Documents & Files';
+
+  @override
+  String get newFolder => 'New Folder';
+
+  @override
+  String get newDocument => 'Add Document';
+
+  @override
+  String get allFiles => 'All Files';
+
+  @override
+  String get seatingPlan => 'Seating Plan';
+
+  @override
+  String get newSeatingPlan => 'New Plan';
+
+  @override
+  String get studentGroups => 'Student Groups';
+
+  @override
+  String get newGroup => 'New Group';
+
+  @override
+  String get activityLogs => 'Participation & Activity';
+
+  @override
+  String get logActivity => 'Log Activity';
+
+  @override
+  String get followUpAlerts => 'Follow-up Alerts';
+
+  @override
+  String get academicYear => 'Academic Year';
+
+  @override
+  String get globalSearch => 'Global Search';
+
+  @override
+  String get activityHistory => 'Activity History';
 }

@@ -259,3 +259,101 @@ class Tasks extends Table with SyncColumns {
   List<String> get customConstraints => ["CHECK (priority IN ('low','medium','high'))"];
 }
 
+// --- Phase 3: Organization Tables ---
+
+class DocumentFolders extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get parentId => text().nullable()();
+  TextColumn get name => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class Documents extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get folderId => text().nullable().references(DocumentFolders, #id)();
+  TextColumn get fileName => text()();
+  TextColumn get mimeType => text()();
+  IntColumn get sizeBytes => integer().withDefault(const Constant(0))();
+  TextColumn get storageKey => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class SeatingPlans extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  TextColumn get name => text()();
+  TextColumn get layout => text().withDefault(const Constant('custom'))(); // rows|groups|u_shape|custom
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<String> get customConstraints => ["CHECK (layout IN ('rows','groups','u_shape','custom'))"];
+}
+
+class SeatingPlanMembers extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get planId => text().references(SeatingPlans, #id)();
+  TextColumn get studentId => text().nullable().references(Students, #id)();
+  RealColumn get seatX => real()();
+  RealColumn get seatY => real()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class StudentGroups extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  TextColumn get name => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class GroupMembers extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get groupId => text().references(StudentGroups, #id)();
+  TextColumn get studentId => text().references(Students, #id)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<Set<Column>> get uniqueKeys => [{groupId, studentId}];
+}
+
+class StudentActivityLogs extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  TextColumn get studentId => text().references(Students, #id)();
+  DateTimeColumn get loggedOn => dateTime()();
+  TextColumn get category => text()(); // participated|completed_homework|late|positive_contribution|classroom_note
+  TextColumn get note => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<String> get customConstraints => [
+        "CHECK (category IN ('participated','completed_homework','late','positive_contribution','classroom_note'))"
+      ];
+}
+
+class Favorites extends Table {
+  TextColumn get id => text()();
+  TextColumn get targetType => text()(); // class|student|lesson|document
+  TextColumn get targetId => text()();
+  DateTimeColumn get createdAt => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<Set<Column>> get uniqueKeys => [{targetType, targetId}];
+}
+

@@ -95,5 +95,19 @@
   "missing": "Non fait",
   "tasks": "Tâches quotidiennes",
   "newTask": "Nouvelle tâche",
-  "quickAction": "Action rapide"
+  "quickAction": "Action rapide",
+  "documentsTitle": "Documents & Fichiers",
+  "newFolder": "Nouveau dossier",
+  "newDocument": "Ajouter un document",
+  "allFiles": "Tous les fichiers",
+  "seatingPlan": "Plan de classe",
+  "newSeatingPlan": "Nouveau plan",
+  "studentGroups": "Groupes d'élèves",
+  "newGroup": "Nouveau groupe",
+  "activityLogs": "Activités et participation",
+  "logActivity": "Enregistrer une activité",
+  "followUpAlerts": "Alertes de suivi",
+  "academicYear": "Année scolaire",
+  "globalSearch": "Recherche globale",
+  "activityHistory": "Historique d'activité"
 }
