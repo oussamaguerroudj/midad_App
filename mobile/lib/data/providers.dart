@@ -6,6 +6,7 @@ import '../core/network/api_client.dart';
 import '../core/settings/settings_controller.dart';
 import 'local/app_database.dart';
 import 'repositories/academic_years_repository.dart';
+import 'repositories/analytics_repository.dart';
 import 'repositories/assignments_repository.dart';
 import 'repositories/attendance_repository.dart';
 import 'repositories/auth_repository.dart';
@@ -18,7 +19,10 @@ import 'repositories/organization_repository.dart';
 import 'repositories/search_repository.dart';
 import 'repositories/students_repository.dart';
 import 'repositories/tasks_repository.dart';
+import 'services/import_export_service.dart';
+import 'services/report_generator_service.dart';
 import 'sync/sync_engine.dart';
+
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {
   final db = AppDatabase.onDevice();
@@ -180,5 +184,38 @@ final favoritesStreamProvider = StreamProvider.family<List<Favorite>, String>((r
 final searchRepositoryProvider = Provider<SearchRepository>((ref) {
   return SearchRepository(ref.watch(appDatabaseProvider));
 });
+
+// --- Phase 4: Analytics & Reports Providers ---
+
+final analyticsRepositoryProvider = Provider<AnalyticsRepository>((ref) {
+  return AnalyticsRepository(ref.watch(appDatabaseProvider));
+});
+
+final reportGeneratorServiceProvider = Provider<ReportGeneratorService>((ref) {
+  return ReportGeneratorService(
+    ref.watch(appDatabaseProvider),
+    ref.watch(analyticsRepositoryProvider),
+  );
+});
+
+final importExportServiceProvider = Provider<ImportExportService>((ref) {
+  return ImportExportService(
+    ref.watch(appDatabaseProvider),
+    ref.watch(analyticsRepositoryProvider),
+  );
+});
+
+final overviewAnalyticsProvider = FutureProvider<OverviewAnalytics>((ref) {
+  return ref.watch(analyticsRepositoryProvider).getOverview();
+});
+
+final classAnalyticsProvider = FutureProvider.family<ClassAnalytics, String>((ref, classId) {
+  return ref.watch(analyticsRepositoryProvider).getClassAnalytics(classId);
+});
+
+final studentAnalyticsProvider = FutureProvider.family<StudentAnalytics, String>((ref, studentId) {
+  return ref.watch(analyticsRepositoryProvider).getStudentAnalytics(studentId);
+});
+
 
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/analytics/analytics_dashboard_page.dart';
 import '../../features/assignments/assignments_page.dart';
 import '../../features/attendance/attendance_page.dart';
 import '../../features/auth/auth_state.dart';
@@ -9,6 +10,10 @@ import '../../features/auth/login_page.dart';
 import '../../features/classes/class_detail_page.dart';
 import '../../features/classes/classes_page.dart';
 import '../../features/documents/documents_page.dart';
+import '../../features/import_export/import_export_page.dart';
+import '../../features/reports/bulletin_view_page.dart';
+import '../../features/reports/report_center_page.dart';
+
 import '../../features/gradebook/assessment_results_page.dart';
 import '../../features/gradebook/gradebook_page.dart';
 import '../../features/home/home_page.dart';
@@ -20,8 +25,8 @@ import '../../features/organization/student_groups_page.dart';
 import '../../features/planner/lesson_editor_page.dart';
 import '../../features/planner/planner_page.dart';
 import '../../features/search/global_search_page.dart';
-import '../../features/shell/pending_page.dart';
 import '../../features/shell/shell_page.dart';
+
 import '../../features/splash/splash_page.dart';
 import '../../features/students/student_profile_page.dart';
 
@@ -119,6 +124,25 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/students/:id',
         builder: (_, state) => StudentProfilePage(studentId: state.pathParameters['id']!),
       ),
+      GoRoute(
+        path: '/reports',
+        builder: (_, __) => const ReportCenterPage(),
+      ),
+      GoRoute(
+        path: '/reports/bulletin/:classId/:studentId',
+        builder: (_, state) => BulletinViewPage(
+          classId: state.pathParameters['classId']!,
+          studentId: state.pathParameters['studentId']!,
+        ),
+      ),
+      GoRoute(
+        path: '/import-export',
+        builder: (_, __) => const ImportExportPage(),
+      ),
+      GoRoute(
+        path: '/import-export/:classId',
+        builder: (_, state) => ImportExportPage(initialClassId: state.pathParameters['classId']),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, __, shell) => ShellPage(shell: shell),
         branches: [
@@ -132,13 +156,14 @@ final routerProvider = Provider<GoRouter>((ref) {
             GoRoute(path: Routes.planner, builder: (_, __) => const PlannerPage()),
           ]),
           StatefulShellBranch(routes: [
-            GoRoute(path: Routes.analytics, builder: (_, __) => const PendingPage(phase: 4, titleKey: PendingTitle.analytics)),
+            GoRoute(path: Routes.analytics, builder: (_, __) => const AnalyticsDashboardPage()),
           ]),
           StatefulShellBranch(routes: [
             GoRoute(path: Routes.more, builder: (_, __) => const MorePage()),
           ]),
         ],
       ),
+
     ],
   );
 });

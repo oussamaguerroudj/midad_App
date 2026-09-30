@@ -257,6 +257,41 @@ class ClassDetailPage extends ConsumerWidget {
                 ),
               ),
 
+              // Action buttons row 3 (Reports & Bulletins, Import/Export CSV)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 4),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.receipt_long, size: 16),
+                        label: const Text('كشوف النقاط والتقارير'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.brand,
+                          foregroundColor: AppColors.white,
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        onPressed: () => context.push('/reports'),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.swap_vert, size: 16),
+                        label: const Text('استيراد وتصدير CSV'),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        onPressed: () => context.push('/import-export/$classId'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+
               // Enrolled students header
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),

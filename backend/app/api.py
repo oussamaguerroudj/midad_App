@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from app.modules.academic_years.router import router as academic_years_router
+from app.modules.analytics.router import router as analytics_router
 from app.modules.assessments.router import router as assessments_router
 from app.modules.assignments.router import router as assignments_router
 from app.modules.attendance.router import router as attendance_router
@@ -32,3 +33,5 @@ api_router.include_router(tasks_router)
 api_router.include_router(academic_years_router)
 api_router.include_router(documents_router)
 api_router.include_router(reports_router)
+api_router.include_router(analytics_router)
+
