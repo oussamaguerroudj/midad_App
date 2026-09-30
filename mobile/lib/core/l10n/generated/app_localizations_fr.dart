@@ -231,4 +231,67 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get syncStatusConflict => 'Conflit';
+
+  @override
+  String get plannerTitle => 'Cahier de texte & Planificateur';
+
+  @override
+  String get lessons => 'Leçons';
+
+  @override
+  String get newLesson => 'Nouvelle leçon';
+
+  @override
+  String get editLesson => 'Modifier la leçon';
+
+  @override
+  String get lessonTopic => 'Titre de la leçon';
+
+  @override
+  String get objectives => 'Objectifs pédagogiques';
+
+  @override
+  String get contentAndActivities => 'Contenu & Activités';
+
+  @override
+  String get homework => 'Devoir à la maison';
+
+  @override
+  String get journalCovered => 'Réalisé en classe (Cahier de texte)';
+
+  @override
+  String get planned => 'Planifié';
+
+  @override
+  String get inProgress => 'En cours';
+
+  @override
+  String get completed => 'Terminé';
+
+  @override
+  String get recordJournal => 'Enregistrer au cahier de texte';
+
+  @override
+  String get assignments => 'Devoirs';
+
+  @override
+  String get newAssignment => 'Nouveau devoir';
+
+  @override
+  String get dueOn => 'Date d\'échéance';
+
+  @override
+  String get assigned => 'Assigné';
+
+  @override
+  String get missing => 'Non fait';
+
+  @override
+  String get tasks => 'Tâches quotidiennes';
+
+  @override
+  String get newTask => 'Nouvelle tâche';
+
+  @override
+  String get quickAction => 'Action rapide';
 }

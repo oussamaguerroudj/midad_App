@@ -5,11 +5,15 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../core/network/api_client.dart';
 import '../core/settings/settings_controller.dart';
 import 'local/app_database.dart';
+import 'repositories/assignments_repository.dart';
 import 'repositories/attendance_repository.dart';
 import 'repositories/auth_repository.dart';
 import 'repositories/classes_repository.dart';
+import 'repositories/curriculum_repository.dart';
 import 'repositories/gradebook_repository.dart';
+import 'repositories/lessons_repository.dart';
 import 'repositories/students_repository.dart';
+import 'repositories/tasks_repository.dart';
 import 'sync/sync_engine.dart';
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {
@@ -79,3 +83,44 @@ final assessmentsStreamProvider = StreamProvider.family<List<AssessmentItem>, St
   final repo = ref.watch(gradebookRepositoryProvider);
   return repo.watchAssessments(classId);
 });
+
+final lessonsRepositoryProvider = Provider<LessonsRepository>((ref) {
+  final db = ref.watch(appDatabaseProvider);
+  final dio = ref.watch(dioProvider);
+  return LessonsRepository(db: db, dio: dio);
+});
+
+final assignmentsRepositoryProvider = Provider<AssignmentsRepository>((ref) {
+  final db = ref.watch(appDatabaseProvider);
+  final dio = ref.watch(dioProvider);
+  return AssignmentsRepository(db: db, dio: dio);
+});
+
+final curriculumRepositoryProvider = Provider<CurriculumRepository>((ref) {
+  final db = ref.watch(appDatabaseProvider);
+  final dio = ref.watch(dioProvider);
+  return CurriculumRepository(db: db, dio: dio);
+});
+
+final lessonsStreamProvider = StreamProvider.family<List<LessonItem>, String?>((ref, classId) {
+  final repo = ref.watch(lessonsRepositoryProvider);
+  return repo.watchLessons(classId: classId);
+});
+
+final assignmentsStreamProvider = StreamProvider.family<List<AssignmentItem>, String>((ref, classId) {
+  final repo = ref.watch(assignmentsRepositoryProvider);
+  return repo.watchAssignments(classId);
+});
+
+final tasksRepositoryProvider = Provider<TasksRepository>((ref) {
+  final db = ref.watch(appDatabaseProvider);
+  final dio = ref.watch(dioProvider);
+  return TasksRepository(db: db, dio: dio);
+});
+
+final tasksStreamProvider = StreamProvider.family<List<TaskItem>, bool?>((ref, completed) {
+  final repo = ref.watch(tasksRepositoryProvider);
+  return repo.watchTasks(completed: completed);
+});
+
+

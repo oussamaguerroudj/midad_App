@@ -2,13 +2,67 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/l10n/generated/app_localizations.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_icons.dart';
+import '../../core/theme/app_radius.dart';
 import '../../core/theme/app_shadows.dart';
+import '../../core/theme/app_spacing.dart';
 
 /// Bottom navigation: Home / Classes / Planner / Analytics / More (no AI tab, spec §10).
 class ShellPage extends StatelessWidget {
   const ShellPage({super.key, required this.shell});
   final StatefulNavigationShell shell;
+
+  void _showQuickActionSheet(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: AppRadius.sheet),
+      builder: (ctx) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                l.quickAction,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              ListTile(
+                leading: const CircleAvatar(backgroundColor: AppColors.brandSoft, child: Icon(Icons.menu_book, color: AppColors.brand)),
+                title: Text(l.newLesson, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text('تخطيط وتحضير درس جديد'),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  context.push('/lessons/new');
+                },
+              ),
+              ListTile(
+                leading: const CircleAvatar(backgroundColor: AppColors.brandSoft, child: Icon(Icons.school, color: AppColors.brand)),
+                title: Text(l.addClass, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text('إضافة قسم أو فوج تربوي جديد'),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  shell.goBranch(1);
+                },
+              ),
+              ListTile(
+                leading: const CircleAvatar(backgroundColor: AppColors.brandSoft, child: Icon(Icons.calendar_month, color: AppColors.brand)),
+                title: Text(l.plannerTitle, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text('فتح جدول الحصص ودفتر النصوص'),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  shell.goBranch(2);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +74,7 @@ class ShellPage extends StatelessWidget {
         decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: AppShadows.fab),
         child: FloatingActionButton(
           tooltip: l.quickAdd,
-          // Quick-action sheet is built in Phase 2; the button is present but intentionally inert until then.
-          onPressed: null,
+          onPressed: () => _showQuickActionSheet(context),
           child: const Icon(AppIcons.add),
         ),
       ),

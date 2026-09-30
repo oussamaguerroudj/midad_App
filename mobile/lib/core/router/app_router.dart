@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/assignments/assignments_page.dart';
 import '../../features/attendance/attendance_page.dart';
 import '../../features/auth/auth_state.dart';
 import '../../features/auth/login_page.dart';
@@ -11,6 +12,8 @@ import '../../features/gradebook/assessment_results_page.dart';
 import '../../features/gradebook/gradebook_page.dart';
 import '../../features/home/home_page.dart';
 import '../../features/more/more_page.dart';
+import '../../features/planner/lesson_editor_page.dart';
+import '../../features/planner/planner_page.dart';
 import '../../features/shell/pending_page.dart';
 import '../../features/shell/shell_page.dart';
 import '../../features/splash/splash_page.dart';
@@ -71,6 +74,18 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(
+        path: '/classes/:id/assignments',
+        builder: (_, state) => AssignmentsPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/lessons/new',
+        builder: (_, __) => const LessonEditorPage(),
+      ),
+      GoRoute(
+        path: '/lessons/:id',
+        builder: (_, state) => LessonEditorPage(lessonId: state.pathParameters['id']),
+      ),
+      GoRoute(
         path: '/students/:id',
         builder: (_, state) => StudentProfilePage(studentId: state.pathParameters['id']!),
       ),
@@ -84,7 +99,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             GoRoute(path: Routes.classes, builder: (_, __) => const ClassesPage()),
           ]),
           StatefulShellBranch(routes: [
-            GoRoute(path: Routes.planner, builder: (_, __) => const PendingPage(phase: 2, titleKey: PendingTitle.planner)),
+            GoRoute(path: Routes.planner, builder: (_, __) => const PlannerPage()),
           ]),
           StatefulShellBranch(routes: [
             GoRoute(path: Routes.analytics, builder: (_, __) => const PendingPage(phase: 4, titleKey: PendingTitle.analytics)),

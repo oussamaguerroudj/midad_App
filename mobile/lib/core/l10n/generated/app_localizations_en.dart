@@ -231,4 +231,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get syncStatusConflict => 'Conflict';
+
+  @override
+  String get plannerTitle => 'Planner & Journal';
+
+  @override
+  String get lessons => 'Lessons';
+
+  @override
+  String get newLesson => 'New Lesson';
+
+  @override
+  String get editLesson => 'Edit Lesson';
+
+  @override
+  String get lessonTopic => 'Lesson Topic';
+
+  @override
+  String get objectives => 'Learning Objectives';
+
+  @override
+  String get contentAndActivities => 'Content & Activities';
+
+  @override
+  String get homework => 'Homework';
+
+  @override
+  String get journalCovered => 'Covered in Class (Journal)';
+
+  @override
+  String get planned => 'Planned';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get recordJournal => 'Record in Journal';
+
+  @override
+  String get assignments => 'Assignments';
+
+  @override
+  String get newAssignment => 'New Assignment';
+
+  @override
+  String get dueOn => 'Due Date';
+
+  @override
+  String get assigned => 'Assigned';
+
+  @override
+  String get missing => 'Missing';
+
+  @override
+  String get tasks => 'Daily Tasks';
+
+  @override
+  String get newTask => 'New Task';
+
+  @override
+  String get quickAction => 'Quick Action';
 }

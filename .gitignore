@@ -23,3 +23,8 @@ key.properties
 .DS_Store
 *.pem
 *.key
+*.cer
+*.crt
+custom_cacerts
+mobile/android/build/
+.gradle/

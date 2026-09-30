@@ -229,4 +229,67 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get syncStatusConflict => 'تعارض في البيانات';
+
+  @override
+  String get plannerTitle => 'المخطط ودفتر النصوص';
+
+  @override
+  String get lessons => 'الدروس';
+
+  @override
+  String get newLesson => 'درس جديد';
+
+  @override
+  String get editLesson => 'تعديل الدرس';
+
+  @override
+  String get lessonTopic => 'موضوع الدرس';
+
+  @override
+  String get objectives => 'الأهداف التعليمية';
+
+  @override
+  String get contentAndActivities => 'المحتوى والأنشطة';
+
+  @override
+  String get homework => 'الواجب المنزلي';
+
+  @override
+  String get journalCovered => 'ما تم إنجازه فعلياً (دفتر النصوص)';
+
+  @override
+  String get planned => 'مخطط';
+
+  @override
+  String get inProgress => 'قيد الإنجاز';
+
+  @override
+  String get completed => 'مكتمل';
+
+  @override
+  String get recordJournal => 'تسجيل في دفتر النصوص';
+
+  @override
+  String get assignments => 'الواجبات المنزلية';
+
+  @override
+  String get newAssignment => 'واجب جديد';
+
+  @override
+  String get dueOn => 'تاريخ التسليم';
+
+  @override
+  String get assigned => 'مكلف';
+
+  @override
+  String get missing => 'غير منجز';
+
+  @override
+  String get tasks => 'المهام اليومية';
+
+  @override
+  String get newTask => 'مهمة جديدة';
+
+  @override
+  String get quickAction => 'إجراء سريع';
 }

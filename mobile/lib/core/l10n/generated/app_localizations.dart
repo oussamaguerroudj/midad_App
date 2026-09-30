@@ -525,6 +525,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Conflict'**
   String get syncStatusConflict;
+
+  /// No description provided for @plannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Planner & Journal'**
+  String get plannerTitle;
+
+  /// No description provided for @lessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get lessons;
+
+  /// No description provided for @newLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'New Lesson'**
+  String get newLesson;
+
+  /// No description provided for @editLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Lesson'**
+  String get editLesson;
+
+  /// No description provided for @lessonTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Topic'**
+  String get lessonTopic;
+
+  /// No description provided for @objectives.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning Objectives'**
+  String get objectives;
+
+  /// No description provided for @contentAndActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'Content & Activities'**
+  String get contentAndActivities;
+
+  /// No description provided for @homework.
+  ///
+  /// In en, this message translates to:
+  /// **'Homework'**
+  String get homework;
+
+  /// No description provided for @journalCovered.
+  ///
+  /// In en, this message translates to:
+  /// **'Covered in Class (Journal)'**
+  String get journalCovered;
+
+  /// No description provided for @planned.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned'**
+  String get planned;
+
+  /// No description provided for @inProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgress;
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completed;
+
+  /// No description provided for @recordJournal.
+  ///
+  /// In en, this message translates to:
+  /// **'Record in Journal'**
+  String get recordJournal;
+
+  /// No description provided for @assignments.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignments'**
+  String get assignments;
+
+  /// No description provided for @newAssignment.
+  ///
+  /// In en, this message translates to:
+  /// **'New Assignment'**
+  String get newAssignment;
+
+  /// No description provided for @dueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get dueOn;
+
+  /// No description provided for @assigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned'**
+  String get assigned;
+
+  /// No description provided for @missing.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing'**
+  String get missing;
+
+  /// No description provided for @tasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Tasks'**
+  String get tasks;
+
+  /// No description provided for @newTask.
+  ///
+  /// In en, this message translates to:
+  /// **'New Task'**
+  String get newTask;
+
+  /// No description provided for @quickAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Action'**
+  String get quickAction;
 }
 
 class _AppLocalizationsDelegate

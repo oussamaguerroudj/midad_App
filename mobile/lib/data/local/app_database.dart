@@ -21,6 +21,13 @@ part 'app_database.g.dart'; // generated: dart run build_runner build
   Assessments,
   AssessmentResults,
   AuditEntries,
+  Lessons,
+  Assignments,
+  AssignmentRecords,
+  CurriculumUnits,
+  CurriculumLessons,
+  CurriculumProgresses,
+  Tasks,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);

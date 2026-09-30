@@ -7,4 +7,5 @@ abstract final class AppRadius {
   static const double xl = 24;
   static BorderRadius get card => BorderRadius.circular(lg);
   static BorderRadius get control => BorderRadius.circular(md);
+  static BorderRadius get sheet => const BorderRadius.vertical(top: Radius.circular(xl));
 }

@@ -155,3 +155,107 @@ class AuditEntries extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
+
+@TableIndex(name: 'idx_lessons_class_date', columns: {#classId, #lessonDate})
+class Lessons extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().nullable().references(Classes, #id)();
+  TextColumn get subjectId => text().nullable().references(Subjects, #id)();
+  TextColumn get topic => text()();
+  DateTimeColumn get lessonDate => dateTime().nullable()();
+  IntColumn get durationMin => integer().nullable().withDefault(const Constant(60))();
+  TextColumn get objectives => text().nullable()();
+  TextColumn get content => text().nullable()();
+  TextColumn get activities => text().nullable()();
+  TextColumn get homework => text().nullable()();
+  TextColumn get notes => text().nullable()();
+  TextColumn get journalCovered => text().nullable()();
+  TextColumn get completion => text().withDefault(const Constant('planned'))(); // planned|in_progress|completed
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<String> get customConstraints => ["CHECK (completion IN ('planned','in_progress','completed'))"];
+}
+
+@TableIndex(name: 'idx_assignments_class_due', columns: {#classId, #dueOn})
+class Assignments extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  TextColumn get title => text()();
+  TextColumn get description => text().nullable()();
+  DateTimeColumn get dueOn => dateTime().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class AssignmentRecords extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get assignmentId => text().references(Assignments, #id)();
+  TextColumn get studentId => text().references(Students, #id)();
+  TextColumn get status => text().withDefault(const Constant('assigned'))(); // assigned|completed|missing|excused
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<Set<Column>> get uniqueKeys => [{assignmentId, studentId}];
+
+  @override
+  List<String> get customConstraints => ["CHECK (status IN ('assigned','completed','missing','excused'))"];
+}
+
+class CurriculumUnits extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get subjectId => text().nullable().references(Subjects, #id)();
+  TextColumn get level => text()();
+  TextColumn get title => text()();
+  IntColumn get position => integer().withDefault(const Constant(1))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class CurriculumLessons extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get unitId => text().references(CurriculumUnits, #id)();
+  TextColumn get title => text()();
+  IntColumn get position => integer().withDefault(const Constant(1))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class CurriculumProgresses extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  TextColumn get curriculumLessonId => text().references(CurriculumLessons, #id)();
+  TextColumn get status => text().withDefault(const Constant('not_started'))(); // not_started|in_progress|completed
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<Set<Column>> get uniqueKeys => [{classId, curriculumLessonId}];
+
+  @override
+  List<String> get customConstraints => ["CHECK (status IN ('not_started','in_progress','completed'))"];
+}
+
+class Tasks extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get title => text()();
+  TextColumn get description => text().nullable()();
+  TextColumn get priority => text().withDefault(const Constant('medium'))(); // low|medium|high
+  DateTimeColumn get dueAt => dateTime().nullable()();
+  DateTimeColumn get completedAt => dateTime().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<String> get customConstraints => ["CHECK (priority IN ('low','medium','high'))"];
+}
+

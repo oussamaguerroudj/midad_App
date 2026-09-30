@@ -23,6 +23,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   shared_preferences: ^2.3.2
   connectivity_plus: ^6.0.5
+  uuid: ^4.6.0
 
 dev_dependencies:
   flutter_test:

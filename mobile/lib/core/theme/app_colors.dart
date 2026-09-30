@@ -25,6 +25,8 @@ abstract final class AppColors {
   // Derived neutrals
   static const lightBorder = Color(0xFFE4E7EC);
   static const darkBorder = Color(0xFF1F2937);
+  static const border = lightBorder;
+  static const error = danger;
   static const darkTextPrimary = Color(0xFFF2F4F7);
   static const darkTextSecondary = Color(0xFF98A2B3);
   static const white = Color(0xFFFFFFFF);

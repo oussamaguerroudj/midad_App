@@ -155,30 +155,44 @@ class ClassDetailPage extends ConsumerWidget {
                   ),
                 ),
 
-              // Action buttons row (Attendance & Gradebook)
+              // Action buttons row (Attendance, Gradebook, Assignments)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
                 child: Row(
                   children: [
                     Expanded(
                       child: OutlinedButton.icon(
-                        icon: const Icon(Icons.fact_check_outlined, size: 18),
+                        icon: const Icon(Icons.fact_check_outlined, size: 16),
                         label: Text(l10n.attendance),
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
                         ),
                         onPressed: () => context.push('/classes/$classId/attendance'),
                       ),
                     ),
-                    const SizedBox(width: AppSpacing.sm),
+                    const SizedBox(width: 6),
                     Expanded(
                       child: OutlinedButton.icon(
-                        icon: const Icon(Icons.grade_outlined, size: 18),
+                        icon: const Icon(Icons.grade_outlined, size: 16),
                         label: Text(l10n.gradebook),
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
                         ),
                         onPressed: () => context.push('/classes/$classId/gradebook'),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.assignment_outlined, size: 16),
+                        label: Text(l10n.assignments),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        onPressed: () => context.push('/classes/$classId/assignments'),
                       ),
                     ),
                   ],
