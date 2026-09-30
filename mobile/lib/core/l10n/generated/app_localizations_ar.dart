@@ -67,4 +67,110 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get errUnknown => 'حدث خطأ ما. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get signIn => 'تسجيل الدخول';
+
+  @override
+  String get signUp => 'إنشاء حساب جديد';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get fullName => 'الاسم الكامل';
+
+  @override
+  String get schoolName => 'المدرسة أو المؤسسة';
+
+  @override
+  String get loginAction => 'تسجيل الدخول';
+
+  @override
+  String get registerAction => 'إنشاء الحساب';
+
+  @override
+  String get noAccount => 'ليس لديك حساب؟ أنشئ حساباً الآن';
+
+  @override
+  String get haveAccount => 'لديك حساب بالفعل؟ سجّل دخولك';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String greetingTeacher(String name) {
+    return 'مرحباً، $name';
+  }
+
+  @override
+  String get classesTitle => 'الأقسام والحصص';
+
+  @override
+  String get studentsTitle => 'الطلاب';
+
+  @override
+  String get addClass => 'إضافة قسم جديد';
+
+  @override
+  String get className => 'اسم القسم';
+
+  @override
+  String get classLevel => 'المستوى الدراسي';
+
+  @override
+  String get subjectName => 'المادة';
+
+  @override
+  String get addStudent => 'إضافة طالب';
+
+  @override
+  String get firstName => 'الاسم';
+
+  @override
+  String get lastName => 'اللقب';
+
+  @override
+  String get studentNumber => 'رقم التعريف (اختياري)';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get noClassesYet => 'لا توجد أقسام مسجلة بعد';
+
+  @override
+  String get noStudentsYet => 'لا يوجد طلاب مسجلون بعد';
+
+  @override
+  String studentsCount(int count) {
+    return '$count طالب';
+  }
+
+  @override
+  String get todayClasses => 'جدول الحصص';
+
+  @override
+  String get searchStudents => 'بحث عن طالب...';
+
+  @override
+  String get notes => 'الملاحظات';
+
+  @override
+  String get addNote => 'إضافة ملاحظة';
+
+  @override
+  String get noteHint => 'اكتب ملاحظة موضوعية...';
+
+  @override
+  String get pinUnlock => 'إلغاء القفل برمز PIN';
+
+  @override
+  String get enterPin => 'أدخل رمز PIN للمتابعة';
 }

@@ -21,7 +21,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get navClasses => 'Classes';
 
   @override
-  String get navPlanner => 'Planning';
+  String get navPlanner => 'Cahier';
 
   @override
   String get navAnalytics => 'Analyses';
@@ -38,7 +38,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get pendingBody => 'Cette section n\'est pas encore développée.';
+  String get pendingBody => 'Cette section n\'est pas encore construite.';
 
   @override
   String get offlineBanner =>
@@ -59,7 +59,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get errConflict =>
-      'Cet élément a été modifié ailleurs. Vérifiez avant d\'enregistrer.';
+      'Cet élément a été modifié ailleurs. Veuillez vérifier avant d\'enregistrer.';
 
   @override
   String get errPermission => 'Vous n\'avez pas accès à cet élément.';
@@ -69,4 +69,110 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get errUnknown => 'Une erreur est survenue. Veuillez réessayer.';
+
+  @override
+  String get signIn => 'Connexion';
+
+  @override
+  String get signUp => 'Créer un compte';
+
+  @override
+  String get email => 'Adresse e-mail';
+
+  @override
+  String get password => 'Mot de passe';
+
+  @override
+  String get fullName => 'Nom complet';
+
+  @override
+  String get schoolName => 'Établissement scolaire';
+
+  @override
+  String get loginAction => 'Se connecter';
+
+  @override
+  String get registerAction => 'Créer le compte';
+
+  @override
+  String get noAccount => 'Pas de compte ? Inscrivez-vous';
+
+  @override
+  String get haveAccount => 'Déjà un compte ? Connectez-vous';
+
+  @override
+  String get logout => 'Se déconnecter';
+
+  @override
+  String greetingTeacher(String name) {
+    return 'Bonjour, $name';
+  }
+
+  @override
+  String get classesTitle => 'Classes et Cours';
+
+  @override
+  String get studentsTitle => 'Élèves';
+
+  @override
+  String get addClass => 'Ajouter une classe';
+
+  @override
+  String get className => 'Nom de la classe';
+
+  @override
+  String get classLevel => 'Niveau scolaire';
+
+  @override
+  String get subjectName => 'Matière';
+
+  @override
+  String get addStudent => 'Ajouter un élève';
+
+  @override
+  String get firstName => 'Prénom';
+
+  @override
+  String get lastName => 'Nom';
+
+  @override
+  String get studentNumber => 'Identifiant (optionnel)';
+
+  @override
+  String get save => 'Enregistrer';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get noClassesYet => 'Aucune classe enregistrée pour le moment';
+
+  @override
+  String get noStudentsYet => 'Aucun élève enregistré pour le moment';
+
+  @override
+  String studentsCount(int count) {
+    return '$count élèves';
+  }
+
+  @override
+  String get todayClasses => 'Emploi du temps';
+
+  @override
+  String get searchStudents => 'Rechercher un élève...';
+
+  @override
+  String get notes => 'Observations';
+
+  @override
+  String get addNote => 'Ajouter une note';
+
+  @override
+  String get noteHint => 'Écrire une observation factuelle...';
+
+  @override
+  String get pinUnlock => 'Déverrouillage par code PIN';
+
+  @override
+  String get enterPin => 'Entrez votre code PIN pour continuer';
 }

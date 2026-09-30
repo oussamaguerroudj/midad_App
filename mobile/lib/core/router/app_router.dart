@@ -3,10 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/auth_state.dart';
+import '../../features/auth/login_page.dart';
+import '../../features/classes/class_detail_page.dart';
+import '../../features/classes/classes_page.dart';
+import '../../features/home/home_page.dart';
 import '../../features/more/more_page.dart';
 import '../../features/shell/pending_page.dart';
 import '../../features/shell/shell_page.dart';
 import '../../features/splash/splash_page.dart';
+import '../../features/students/student_profile_page.dart';
 
 abstract final class Routes {
   static const splash = '/splash';
@@ -42,15 +47,23 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (_, state) => resolveRedirect(status: status.value, location: state.matchedLocation),
     routes: [
       GoRoute(path: Routes.splash, builder: (_, __) => const SplashPage()),
-      GoRoute(path: Routes.login, builder: (_, __) => const PendingPage(phase: 1, titleKey: PendingTitle.signIn)),
+      GoRoute(path: Routes.login, builder: (_, __) => const LoginPage()),
+      GoRoute(
+        path: '/classes/:id',
+        builder: (_, state) => ClassDetailPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/students/:id',
+        builder: (_, state) => StudentProfilePage(studentId: state.pathParameters['id']!),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, __, shell) => ShellPage(shell: shell),
         branches: [
           StatefulShellBranch(routes: [
-            GoRoute(path: Routes.home, builder: (_, __) => const PendingPage(phase: 1, titleKey: PendingTitle.home)),
+            GoRoute(path: Routes.home, builder: (_, __) => const HomePage()),
           ]),
           StatefulShellBranch(routes: [
-            GoRoute(path: Routes.classes, builder: (_, __) => const PendingPage(phase: 1, titleKey: PendingTitle.classes)),
+            GoRoute(path: Routes.classes, builder: (_, __) => const ClassesPage()),
           ]),
           StatefulShellBranch(routes: [
             GoRoute(path: Routes.planner, builder: (_, __) => const PendingPage(phase: 2, titleKey: PendingTitle.planner)),

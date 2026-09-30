@@ -213,6 +213,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get errUnknown;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Account'**
+  String get signUp;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @schoolName.
+  ///
+  /// In en, this message translates to:
+  /// **'School or Institution'**
+  String get schoolName;
+
+  /// No description provided for @loginAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get loginAction;
+
+  /// No description provided for @registerAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get registerAction;
+
+  /// No description provided for @noAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Sign up'**
+  String get noAccount;
+
+  /// No description provided for @haveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign in'**
+  String get haveAccount;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get logout;
+
+  /// No description provided for @greetingTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String greetingTeacher(String name);
+
+  /// No description provided for @classesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Classes & Courses'**
+  String get classesTitle;
+
+  /// No description provided for @studentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Students'**
+  String get studentsTitle;
+
+  /// No description provided for @addClass.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Class'**
+  String get addClass;
+
+  /// No description provided for @className.
+  ///
+  /// In en, this message translates to:
+  /// **'Class Name'**
+  String get className;
+
+  /// No description provided for @classLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Grade Level'**
+  String get classLevel;
+
+  /// No description provided for @subjectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get subjectName;
+
+  /// No description provided for @addStudent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Student'**
+  String get addStudent;
+
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastName;
+
+  /// No description provided for @studentNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Student ID (optional)'**
+  String get studentNumber;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @noClassesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No classes registered yet'**
+  String get noClassesYet;
+
+  /// No description provided for @noStudentsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No students registered yet'**
+  String get noStudentsYet;
+
+  /// No description provided for @studentsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} students'**
+  String studentsCount(int count);
+
+  /// No description provided for @todayClasses.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get todayClasses;
+
+  /// No description provided for @searchStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'Search students...'**
+  String get searchStudents;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @addNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Note'**
+  String get addNote;
+
+  /// No description provided for @noteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write an objective note...'**
+  String get noteHint;
+
+  /// No description provided for @pinUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with PIN'**
+  String get pinUnlock;
+
+  /// No description provided for @enterPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter PIN to continue'**
+  String get enterPin;
 }
 
 class _AppLocalizationsDelegate

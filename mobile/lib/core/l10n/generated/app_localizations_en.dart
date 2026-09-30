@@ -69,4 +69,110 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errUnknown => 'Something went wrong. Please try again.';
+
+  @override
+  String get signIn => 'Sign In';
+
+  @override
+  String get signUp => 'Create New Account';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get schoolName => 'School or Institution';
+
+  @override
+  String get loginAction => 'Sign In';
+
+  @override
+  String get registerAction => 'Create Account';
+
+  @override
+  String get noAccount => 'Don\'t have an account? Sign up';
+
+  @override
+  String get haveAccount => 'Already have an account? Sign in';
+
+  @override
+  String get logout => 'Sign Out';
+
+  @override
+  String greetingTeacher(String name) {
+    return 'Hello, $name';
+  }
+
+  @override
+  String get classesTitle => 'Classes & Courses';
+
+  @override
+  String get studentsTitle => 'Students';
+
+  @override
+  String get addClass => 'Add New Class';
+
+  @override
+  String get className => 'Class Name';
+
+  @override
+  String get classLevel => 'Grade Level';
+
+  @override
+  String get subjectName => 'Subject';
+
+  @override
+  String get addStudent => 'Add Student';
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get studentNumber => 'Student ID (optional)';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get noClassesYet => 'No classes registered yet';
+
+  @override
+  String get noStudentsYet => 'No students registered yet';
+
+  @override
+  String studentsCount(int count) {
+    return '$count students';
+  }
+
+  @override
+  String get todayClasses => 'Schedule';
+
+  @override
+  String get searchStudents => 'Search students...';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get addNote => 'Add Note';
+
+  @override
+  String get noteHint => 'Write an objective note...';
+
+  @override
+  String get pinUnlock => 'Unlock with PIN';
+
+  @override
+  String get enterPin => 'Enter PIN to continue';
 }
