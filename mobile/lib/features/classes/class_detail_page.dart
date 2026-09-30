@@ -155,6 +155,36 @@ class ClassDetailPage extends ConsumerWidget {
                   ),
                 ),
 
+              // Action buttons row (Attendance & Gradebook)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.fact_check_outlined, size: 18),
+                        label: Text(l10n.attendance),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                        ),
+                        onPressed: () => context.push('/classes/$classId/attendance'),
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.grade_outlined, size: 18),
+                        label: Text(l10n.gradebook),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: AppRadius.control),
+                        ),
+                        onPressed: () => context.push('/classes/$classId/gradebook'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
               // Enrolled students header
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),

@@ -417,6 +417,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter PIN to continue'**
   String get enterPin;
+
+  /// No description provided for @attendance.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance'**
+  String get attendance;
+
+  /// No description provided for @markAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Attendance'**
+  String get markAttendance;
+
+  /// No description provided for @markAllPresent.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all present'**
+  String get markAllPresent;
+
+  /// No description provided for @present.
+  ///
+  /// In en, this message translates to:
+  /// **'Present'**
+  String get present;
+
+  /// No description provided for @absent.
+  ///
+  /// In en, this message translates to:
+  /// **'Absent'**
+  String get absent;
+
+  /// No description provided for @late.
+  ///
+  /// In en, this message translates to:
+  /// **'Late'**
+  String get late;
+
+  /// No description provided for @excused.
+  ///
+  /// In en, this message translates to:
+  /// **'Excused'**
+  String get excused;
+
+  /// No description provided for @gradebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Gradebook'**
+  String get gradebook;
+
+  /// No description provided for @addAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Assessment'**
+  String get addAssessment;
+
+  /// No description provided for @assessmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Title'**
+  String get assessmentTitle;
+
+  /// No description provided for @maxScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Score'**
+  String get maxScore;
+
+  /// No description provided for @coefficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Coefficient'**
+  String get coefficient;
+
+  /// No description provided for @score.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get score;
+
+  /// No description provided for @scoreExceedsMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Score cannot exceed max ({max})'**
+  String scoreExceedsMax(String max);
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// No description provided for @syncStatusSynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced'**
+  String get syncStatusSynced;
+
+  /// No description provided for @syncStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending sync'**
+  String get syncStatusPending;
+
+  /// No description provided for @syncStatusConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'Conflict'**
+  String get syncStatusConflict;
 }
 
 class _AppLocalizationsDelegate

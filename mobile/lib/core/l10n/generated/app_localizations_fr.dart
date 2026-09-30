@@ -175,4 +175,60 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get enterPin => 'Entrez votre code PIN pour continuer';
+
+  @override
+  String get attendance => 'Présences';
+
+  @override
+  String get markAttendance => 'Prendre les présences';
+
+  @override
+  String get markAllPresent => 'Tous présents';
+
+  @override
+  String get present => 'Présent';
+
+  @override
+  String get absent => 'Absent';
+
+  @override
+  String get late => 'En retard';
+
+  @override
+  String get excused => 'Excusé';
+
+  @override
+  String get gradebook => 'Carnet de notes';
+
+  @override
+  String get addAssessment => 'Ajouter une évaluation';
+
+  @override
+  String get assessmentTitle => 'Titre de l\'évaluation';
+
+  @override
+  String get maxScore => 'Note maximale';
+
+  @override
+  String get coefficient => 'Coefficient';
+
+  @override
+  String get score => 'Note';
+
+  @override
+  String scoreExceedsMax(String max) {
+    return 'La note ne peut dépasser le maximum ($max)';
+  }
+
+  @override
+  String get undo => 'Annuler';
+
+  @override
+  String get syncStatusSynced => 'Synchronisé';
+
+  @override
+  String get syncStatusPending => 'En attente';
+
+  @override
+  String get syncStatusConflict => 'Conflit';
 }

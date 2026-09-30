@@ -175,4 +175,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterPin => 'Enter PIN to continue';
+
+  @override
+  String get attendance => 'Attendance';
+
+  @override
+  String get markAttendance => 'Take Attendance';
+
+  @override
+  String get markAllPresent => 'Mark all present';
+
+  @override
+  String get present => 'Present';
+
+  @override
+  String get absent => 'Absent';
+
+  @override
+  String get late => 'Late';
+
+  @override
+  String get excused => 'Excused';
+
+  @override
+  String get gradebook => 'Gradebook';
+
+  @override
+  String get addAssessment => 'Add Assessment';
+
+  @override
+  String get assessmentTitle => 'Assessment Title';
+
+  @override
+  String get maxScore => 'Max Score';
+
+  @override
+  String get coefficient => 'Coefficient';
+
+  @override
+  String get score => 'Score';
+
+  @override
+  String scoreExceedsMax(String max) {
+    return 'Score cannot exceed max ($max)';
+  }
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String get syncStatusSynced => 'Synced';
+
+  @override
+  String get syncStatusPending => 'Pending sync';
+
+  @override
+  String get syncStatusConflict => 'Conflict';
 }

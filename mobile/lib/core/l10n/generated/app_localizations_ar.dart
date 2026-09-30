@@ -173,4 +173,60 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get enterPin => 'أدخل رمز PIN للمتابعة';
+
+  @override
+  String get attendance => 'الحضور والغياب';
+
+  @override
+  String get markAttendance => 'تسجيل الحضور';
+
+  @override
+  String get markAllPresent => 'تحديد الكل حاضر';
+
+  @override
+  String get present => 'حاضر';
+
+  @override
+  String get absent => 'غائب';
+
+  @override
+  String get late => 'متأخر';
+
+  @override
+  String get excused => 'معذور';
+
+  @override
+  String get gradebook => 'دفتر العلامات';
+
+  @override
+  String get addAssessment => 'إضافة فرض أو تقييم';
+
+  @override
+  String get assessmentTitle => 'عنوان التقييم';
+
+  @override
+  String get maxScore => 'العلامة الكاملة';
+
+  @override
+  String get coefficient => 'المعامل';
+
+  @override
+  String get score => 'العلامة';
+
+  @override
+  String scoreExceedsMax(String max) {
+    return 'العلامة لا يمكن أن تتجاوز الحد الأقصى ($max)';
+  }
+
+  @override
+  String get undo => 'تراجع';
+
+  @override
+  String get syncStatusSynced => 'متزامن';
+
+  @override
+  String get syncStatusPending => 'في انتظار المزامنة';
+
+  @override
+  String get syncStatusConflict => 'تعارض في البيانات';
 }

@@ -7,6 +7,7 @@ from app.api import api_router
 from app.core.config import get_settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import configure_logging
+import app.modules.registry  # noqa: F401
 
 SECURITY_HEADERS = {
     "X-Content-Type-Options": "nosniff",

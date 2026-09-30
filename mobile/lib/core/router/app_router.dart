@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/attendance/attendance_page.dart';
 import '../../features/auth/auth_state.dart';
 import '../../features/auth/login_page.dart';
 import '../../features/classes/class_detail_page.dart';
 import '../../features/classes/classes_page.dart';
+import '../../features/gradebook/assessment_results_page.dart';
+import '../../features/gradebook/gradebook_page.dart';
 import '../../features/home/home_page.dart';
 import '../../features/more/more_page.dart';
 import '../../features/shell/pending_page.dart';
@@ -51,6 +54,21 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/classes/:id',
         builder: (_, state) => ClassDetailPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/classes/:id/attendance',
+        builder: (_, state) => AttendancePage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/classes/:id/gradebook',
+        builder: (_, state) => GradebookPage(classId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/classes/:id/assessments/:assessmentId',
+        builder: (_, state) => AssessmentResultsPage(
+          classId: state.pathParameters['id']!,
+          assessmentId: state.pathParameters['assessmentId']!,
+        ),
       ),
       GoRoute(
         path: '/students/:id',
