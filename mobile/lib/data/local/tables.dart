@@ -1,0 +1,157 @@
+import 'package:drift/drift.dart';
+
+/// Local (SQLite) schema. Every replicated table carries sync metadata:
+///   version    - last server version known (optimistic locking, spec §49)
+///   syncStatus - 'synced' | 'pending' | 'conflict'
+///   deletedAt  - soft delete, so deletions can be synced
+/// IDs are client-generated UUID strings so offline creation never needs the server.
+mixin SyncColumns on Table {
+  IntColumn get version => integer().withDefault(const Constant(0))();
+  TextColumn get syncStatus => text().withDefault(const Constant('pending'))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+  DateTimeColumn get deletedAt => dateTime().nullable()();
+}
+
+@TableIndex(name: 'idx_sync_queue_status_created', columns: {#status, #createdAt})
+@TableIndex(name: 'idx_sync_queue_entity', columns: {#entityType, #entityId})
+class SyncQueue extends Table {
+  TextColumn get id => text()();
+  TextColumn get entityType => text()();
+  TextColumn get entityId => text()();
+  TextColumn get operation => text()(); // CREATE | UPDATE | DELETE
+  TextColumn get payload => text()(); // JSON
+  IntColumn get baseVersion => integer().withDefault(const Constant(0))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+  IntColumn get retryCount => integer().withDefault(const Constant(0))();
+  TextColumn get status => text().withDefault(const Constant('pending'))(); // pending|processing|synced|failed
+  TextColumn get lastError => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<String> get customConstraints => [
+        "CHECK (operation IN ('CREATE','UPDATE','DELETE'))",
+        "CHECK (status IN ('pending','processing','synced','failed'))",
+      ];
+}
+
+class AcademicYears extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get label => text()();
+  DateTimeColumn get startsOn => dateTime()();
+  DateTimeColumn get endsOn => dateTime()();
+  BoolColumn get isCurrent => boolean().withDefault(const Constant(false))();
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class Subjects extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get name => text()();
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@TableIndex(name: 'idx_classes_year', columns: {#academicYearId})
+class Classes extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get academicYearId => text().references(AcademicYears, #id)();
+  TextColumn get subjectId => text().references(Subjects, #id)();
+  TextColumn get name => text()();
+  TextColumn get level => text().nullable()();
+  DateTimeColumn get archivedAt => dateTime().nullable()();
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@TableIndex(name: 'idx_students_name', columns: {#lastName, #firstName})
+class Students extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get firstName => text()();
+  TextColumn get lastName => text()();
+  TextColumn get externalRef => text().nullable()();
+  DateTimeColumn get archivedAt => dateTime().nullable()();
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@TableIndex(name: 'idx_class_students_class', columns: {#classId})
+class ClassStudents extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  TextColumn get studentId => text().references(Students, #id)();
+  @override
+  Set<Column> get primaryKey => {id};
+  @override
+  List<Set<Column>> get uniqueKeys => [{classId, studentId}];
+}
+
+@TableIndex(name: 'idx_att_sessions_class_date', columns: {#classId, #sessionDate})
+class AttendanceSessions extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  DateTimeColumn get sessionDate => dateTime()();
+  TextColumn get slot => text().withDefault(const Constant(''))();
+  @override
+  Set<Column> get primaryKey => {id};
+  @override
+  List<Set<Column>> get uniqueKeys => [{classId, sessionDate, slot}];
+}
+
+class AttendanceRecords extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get sessionId => text().references(AttendanceSessions, #id)();
+  TextColumn get studentId => text().references(Students, #id)();
+  TextColumn get status => text()(); // present|absent|late|excused
+  TextColumn get note => text().nullable()();
+  @override
+  Set<Column> get primaryKey => {id};
+  @override
+  List<Set<Column>> get uniqueKeys => [{sessionId, studentId}];
+  @override
+  List<String> get customConstraints => ["CHECK (status IN ('present','absent','late','excused'))"];
+}
+
+@TableIndex(name: 'idx_assessments_class_date', columns: {#classId, #assessedOn})
+class Assessments extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get classId => text().references(Classes, #id)();
+  TextColumn get title => text()();
+  TextColumn get kind => text()();
+  DateTimeColumn get assessedOn => dateTime()();
+  RealColumn get maxScore => real().withDefault(const Constant(20))();
+  RealColumn get coefficient => real().withDefault(const Constant(1))();
+  @override
+  Set<Column> get primaryKey => {id};
+  @override
+  List<String> get customConstraints => ['CHECK (max_score > 0)', 'CHECK (coefficient > 0)'];
+}
+
+class AssessmentResults extends Table with SyncColumns {
+  TextColumn get id => text()();
+  TextColumn get assessmentId => text().references(Assessments, #id)();
+  TextColumn get studentId => text().references(Students, #id)();
+  RealColumn get score => real().nullable()();
+  @override
+  Set<Column> get primaryKey => {id};
+  @override
+  List<Set<Column>> get uniqueKeys => [{assessmentId, studentId}];
+  @override
+  List<String> get customConstraints => ['CHECK (score IS NULL OR score >= 0)'];
+}
+
+/// Local audit trail; uploaded with the sync batch. Append-only.
+class AuditEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get action => text()();
+  TextColumn get entityType => text()();
+  TextColumn get entityId => text().nullable()();
+  TextColumn get beforeJson => text().nullable()();
+  TextColumn get afterJson => text().nullable()();
+  DateTimeColumn get occurredAt => dateTime()();
+  @override
+  Set<Column> get primaryKey => {id};
+}

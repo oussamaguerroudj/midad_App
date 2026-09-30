@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "appName": "MIDAD",
+  "tagline": "Teacher Workspace",
+  "navHome": "Home",
+  "navClasses": "Classes",
+  "navPlanner": "Planner",
+  "navAnalytics": "Analytics",
+  "navMore": "More",
+  "quickAdd": "Quick add",
+  "pendingTitle": "Coming in phase {phase}",
+  "@pendingTitle": {"placeholders": {"phase": {"type": "int"}}},
+  "pendingBody": "This section is not built yet.",
+  "offlineBanner": "You're offline. Changes will sync automatically.",
+  "syncDone": "All changes synchronized.",
+  "errNetwork": "Unable to synchronize right now. Your changes are saved on this device.",
+  "errAuth": "Your session has expired. Please sign in again.",
+  "errValidation": "Please check the information you entered.",
+  "errConflict": "This item was changed elsewhere. Please review before saving.",
+  "errPermission": "You don't have access to this item.",
+  "errFile": "This file could not be used.",
+  "errUnknown": "Something went wrong. Please try again."
+}

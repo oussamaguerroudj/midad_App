@@ -1,0 +1,22 @@
+{
+  "@@locale": "fr",
+  "appName": "MIDAD",
+  "tagline": "Espace de travail de l'enseignant",
+  "navHome": "Accueil",
+  "navClasses": "Classes",
+  "navPlanner": "Planning",
+  "navAnalytics": "Analyses",
+  "navMore": "Plus",
+  "quickAdd": "Ajout rapide",
+  "pendingTitle": "Disponible en phase {phase}",
+  "pendingBody": "Cette section n'est pas encore développée.",
+  "offlineBanner": "Vous êtes hors ligne. Les modifications seront synchronisées automatiquement.",
+  "syncDone": "Toutes les modifications sont synchronisées.",
+  "errNetwork": "Synchronisation impossible pour le moment. Vos modifications sont enregistrées sur cet appareil.",
+  "errAuth": "Votre session a expiré. Veuillez vous reconnecter.",
+  "errValidation": "Veuillez vérifier les informations saisies.",
+  "errConflict": "Cet élément a été modifié ailleurs. Vérifiez avant d'enregistrer.",
+  "errPermission": "Vous n'avez pas accès à cet élément.",
+  "errFile": "Ce fichier n'a pas pu être utilisé.",
+  "errUnknown": "Une erreur est survenue. Veuillez réessayer."
+}

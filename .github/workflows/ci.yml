@@ -1,0 +1,37 @@
+name: CI
+on:
+  push: { branches: [main, develop] }
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: midad, POSTGRES_PASSWORD: ci_password, POSTGRES_DB: midad }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U midad" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://midad:ci_password@localhost:5432/midad
+      JWT_SECRET: ci-only-secret-ci-only-secret-ci-only-1
+      JWT_REFRESH_SECRET: ci-only-refresh-ci-only-refresh-ci-2
+    defaults: { run: { working-directory: backend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements-dev.txt
+      - run: ruff check .
+      - run: alembic upgrade head
+      - run: alembic downgrade base && alembic upgrade head   # migration is reversible
+      - run: pytest -q
+
+  mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - run: bash tools/bootstrap_mobile.sh
